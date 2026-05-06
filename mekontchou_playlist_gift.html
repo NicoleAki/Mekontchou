@@ -1,0 +1,418 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Patrick+Hand&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .wrap {
+    font-family: 'Patrick Hand', cursive;
+    color: var(--color-text-primary);
+    padding: 2rem 1rem 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .love-note {
+    text-align: center;
+    margin-bottom: 2.2rem;
+    padding: 1.6rem 1.8rem;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    position: relative;
+  }
+  .love-note::before {
+    content: '💙';
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .love-note-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #1a5c8a;
+    margin-bottom: 0.6rem;
+  }
+  .love-note-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .dedication {
+    margin-top: 0.8rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.15rem;
+    color: #4a9fd4;
+  }
+
+  .disk-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .disk-wrap {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    margin: 0 auto;
+  }
+
+  .vinyl {
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+      #c8e6fa 0%, #a0cef5 8%, #1a1a2e 10%,
+      #1a1a2e 18%, #0d2137 20%,
+      #1a1a2e 22%, #0d2137 28%,
+      #1a1a2e 30%, #0d2137 36%,
+      #1a1a2e 38%, #0d2137 44%,
+      #1a1a2e 46%, #0d2137 50%,
+      #1a1a2e 100%);
+    position: absolute;
+    top: 0; left: 0;
+    animation: spin 12s linear infinite;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(26,92,138,0.18);
+  }
+  .vinyl.paused { animation-play-state: paused; }
+
+  .vinyl-label {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a5c8a 0%, #4a9fd4 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    text-align: center;
+    padding: 8px;
+    animation: counter-spin 12s linear infinite;
+  }
+  .vinyl-label.paused { animation-play-state: paused; }
+
+  .vinyl-label-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+  }
+  .vinyl-label-sub {
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+    font-family: 'Patrick Hand', cursive;
+  }
+  .play-hint {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes counter-spin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+  .reasons-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+  }
+
+  .reason-btn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #4a9fd4;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a5c8a;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(26,92,138,0.15);
+  }
+  .reason-btn:hover, .reason-btn.active {
+    background: #1a5c8a;
+    color: white;
+    border-color: #1a5c8a;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  .detail-card {
+    margin-top: 2rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--color-background-primary);
+    border: 0.5px solid #4a9fd4;
+    border-radius: var(--border-radius-lg);
+    border-left: 4px solid #4a9fd4;
+    min-height: 100px;
+    transition: all 0.3s ease;
+  }
+  .detail-num {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4a9fd4;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .detail-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a5c8a;
+    margin-bottom: 0.5rem;
+  }
+  .detail-body {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+  }
+  .detail-placeholder {
+    font-size: 0.95rem;
+    color: var(--color-text-tertiary);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .spotify-section {
+    margin-top: 2.4rem;
+    padding: 1.4rem 1.6rem;
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+  }
+  .spotify-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.9rem;
+  }
+  .spotify-icon {
+    width: 40px; height: 40px;
+    background: #1DB954;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .spotify-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a5c8a;
+    line-height: 1.2;
+  }
+  .spotify-sub {
+    font-size: 0.82rem;
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+  .spotify-note {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .spotify-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #1DB954;
+    color: white;
+    border-radius: 50px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .spotify-link-btn:hover { opacity: 0.85; }
+
+  .sign-off {
+    margin-top: 2rem;
+    text-align: right;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: #1a5c8a;
+  }
+  .sign-off small {
+    display: block;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.82rem;
+    color: var(--color-text-tertiary);
+    margin-top: 4px;
+  }
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">A special dedication playlist gift for Mekontchou — 10 reasons and a Spotify playlist</h2>
+
+  <div class="love-note">
+    <div class="love-note-title">home is where the heart is</div>
+    <p class="love-note-text">
+      And my heart found its home in you. Before you, I kept my world small and my walls high. You walked in — steady, warm, certain — and suddenly the world felt bigger and safer all at once. This is for you, Mekontchou. Every song on this playlist is one I watched you dance to, sing along to, come alive in. I made it so a piece of that joy lives somewhere you can always return to.
+    </p>
+    <div class="dedication">— a special dedication to my love, Mekontchou 💙</div>
+  </div>
+
+  <div class="disk-section">
+    <div class="disk-wrap" id="diskWrap">
+      <div class="vinyl" id="vinyl" onclick="toggleSpin()"></div>
+      <div class="vinyl-label" id="vinylLabel">
+        <div class="vinyl-label-text">for<br>Mekontchou</div>
+        <div class="vinyl-label-sub">💙 a love record</div>
+        <div class="play-hint">tap to pause</div>
+      </div>
+
+      <div class="reasons-ring" id="ring"></div>
+    </div>
+  </div>
+
+  <div class="detail-card" id="detailCard">
+    <div class="detail-placeholder">click any number around the record to read a reason✦</div>
+  </div>
+
+  <div class="spotify-section">
+    <div class="spotify-header">
+      <div class="spotify-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 01-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257C14.4 12.226 11.16 11.7 7.094 12.78a.78.78 0 01-.38-1.512c4.514-1.136 8.188-.577 11.038 1.162a.78.78 0 01.257 1.072zm.105-2.835C15.127 9.108 10.47 8.958 7.3 9.88a.935.935 0 11-.543-1.79c3.648-1.108 9.718-.894 13.554 1.25a.935.935 0 01-.497 1.727z"/></svg>
+      </div>
+      <div>
+        <div class="spotify-title">the playlist — songs of you</div>
+        <div class="spotify-sub">every track i've watched you come alive to</div>
+      </div>
+    </div>
+    <p class="spotify-note">
+      I built this for you quietly — collecting every song I watched you dance to, hum along to, light up for. Some tracks you sang word for word. Some made you move without thinking. All of them reminded me of you. Come back to it whenever you need to feel like yourself. It's yours.
+    </p>
+    <a class="spotify-link-btn" href="https://open.spotify.com/playlist/7BgQGRTGqjaelKYjCBtcUJ?si=Q8oHehgDSM-tBmU99LqtBg" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 01-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257C14.4 12.226 11.16 11.7 7.094 12.78a.78.78 0 01-.38-1.512c4.514-1.136 8.188-.577 11.038 1.162a.78.78 0 01.257 1.072zm.105-2.835C15.127 9.108 10.47 8.958 7.3 9.88a.935.935 0 11-.543-1.79c3.648-1.108 9.718-.894 13.554 1.25a.935.935 0 01-.497 1.727z"/></svg>
+      open playlist on Spotify
+    </a>
+  </div>
+
+  <div class="sign-off">
+    Yours, always 💙
+    <strong>Your Pookie, Otieno</strong>
+    <small>— your girl, in every season</small>
+  </div>
+</div>
+
+<script>
+const reasons = [
+  {
+    title: "your compassion & empathy",
+    body: "The way you feel things — for people, for strangers, for me — is one of the most beautiful things about you. You never make anyone feel unseen. You carry kindness like it costs you nothing, and that's rare."
+  },
+  {
+    title: "your selflessness",
+    body: "You give without keeping score. You show up for others before yourself, and you do it so naturally that I'm not sure you even notice. That one incident when you gave a homeless man money when you had soo little still humbles me. This is to tell you, I notice. I always notice."
+  },
+  {
+    title: "the leader in you",
+    body: "You don't wait to be told what to do — you see what needs fixing and you fix it. You take charge with calm and confidence, and people trust you because of it. You were born for it."
+  },
+  {
+    title: "your drive & tenacity",
+    body: "You are self-made in the truest sense. You push yourself, stay the course, and keep going even when it's hard. That kind of inner fire is rare — and it inspires me every single day and I'll keep on being your cheerleader"
+  },
+  {
+    title: "how expressive you are",
+    body: "You feel deeply and you're not afraid to show it. I love being the one you turn to. I love holding you when things get heavy, and I love that you let me. We hold each other — that's everything."
+  },
+  {
+    title: "your forward thinking",
+    body: "Setbacks don't shake your vision. You look at a misfortune and still see the future clearly, always asking 'What can I do next?'. I'm here to keep you motivated — because whatever you set your eyes on, you will reach it. I believe that fully."
+  },
+  {
+    title: "how playful you are",
+    body: "You get on my nerves sometimes, yes — but your silliness is a superpower. You know how to shift a room's mood, make someone laugh when they've forgotten how. That cheekiness? It's one of my favourite things about you."
+  },
+  {
+    title: "the world you let me into",
+    body: "Fried plantain. Football. Phone calls I never used to make. You didn't just let me into your world — you changed mine. I'm more open, more curious, more alive because of you. I never saw that coming."
+  },
+  {
+    title: "the love you showed me",
+    body: "I had never known love could feel this easy. With you, it just flows. Even in the hard moments, there's a foundation I didn't know love could have. You showed me what it actually feels like to be chosen."
+  },
+  {
+    title: "you, simply you",
+    body: "Dancing to Tofe Yamo. Arguing with the screen during Arsenal games. The way you smile in your sleep. None of it is extraordinary to the world — but to me, all of it is everything. You are enough. More than enough."
+  }
+];
+
+const ring = document.getElementById('ring');
+const detailCard = document.getElementById('detailCard');
+let activeBtn = null;
+let spinning = true;
+
+function toggleSpin() {
+  spinning = !spinning;
+  const v = document.getElementById('vinyl');
+  const l = document.getElementById('vinylLabel');
+  if (spinning) {
+    v.classList.remove('paused');
+    l.classList.remove('paused');
+    l.querySelector('.play-hint').textContent = 'tap to pause';
+  } else {
+    v.classList.add('paused');
+    l.classList.add('paused');
+    l.querySelector('.play-hint').textContent = 'tap to play';
+  }
+}
+
+const radius = 175;
+reasons.forEach((r, i) => {
+  const angle = (i / reasons.length) * 2 * Math.PI - Math.PI / 2;
+  const x = Math.cos(angle) * radius;
+  const y = Math.sin(angle) * radius;
+
+  const btn = document.createElement('div');
+  btn.className = 'reason-btn';
+  btn.textContent = i + 1;
+  btn.style.left = x + 'px';
+  btn.style.top = y + 'px';
+  btn.title = r.title;
+
+  btn.addEventListener('click', () => {
+    if (activeBtn) activeBtn.classList.remove('active');
+    if (activeBtn === btn) {
+      activeBtn = null;
+      detailCard.innerHTML = '<div class="detail-placeholder">click any number around the record ✦</div>';
+      return;
+    }
+    activeBtn = btn;
+    btn.classList.add('active');
+    detailCard.innerHTML = `
+      <div class="detail-num">#${i+1}</div>
+      <div class="detail-title">${r.title}</div>
+      <div class="detail-body">${r.body}</div>
+    `;
+  });
+
+  ring.appendChild(btn);
+});
+</script>
